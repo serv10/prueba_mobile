@@ -24,6 +24,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         setupPasswordValidation()
         action()
     }
+
     private fun action() {
         binding.textRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -80,5 +81,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun performLogin(email: String, password: String) {
         showMessage(requireContext(), "$email - $password")
     }
-
 }
