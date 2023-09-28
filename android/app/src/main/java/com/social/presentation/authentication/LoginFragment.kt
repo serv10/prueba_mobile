@@ -81,8 +81,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun performLogin(email: String, password: String) {
         showMessage(requireContext(), "$email - $password")
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> pipeline
 }
