@@ -69,7 +69,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun loginButton() {
-        val email = binding.inputEmail.text.toString()
+            val email = binding.inputEmail.text.toString()
         val password = binding.inputPassword.text.toString()
         if (Validation.isEmailValid(email) && Validation.isPasswordValid(password)) {
             performLogin(email, password)
