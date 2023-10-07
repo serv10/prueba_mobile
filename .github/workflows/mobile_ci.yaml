@@ -29,11 +29,14 @@ jobs:
       - name: Grant execute permissions to gradle wrapper
         run: chmod +x ./gradlew
 
-      - name: Build App
-        run: ./gradlew build
+      - name: Run ktLinter Format 1
+        run: ./gradlew ktlintFormat
 
-      - name: Run Linter
-        run: ./gradlew lint
+      - name: Run ktLinter Format 2
+        run: ./gradlew ktlintFormat
+
+      - name: Build App
+        run: ./gradlew clean build
 
       - name: Test App
         run: ./gradlew test

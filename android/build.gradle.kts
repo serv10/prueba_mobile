@@ -3,6 +3,22 @@ plugins {
     id("com.android.application") version "8.1.1" apply false
     id("com.android.library") version "8.1.1" apply false
     id("org.jetbrains.kotlin.android") version "1.8.20" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.0"
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.0.0")
+        verbose.set(true)
+        android.set(true)
+
+        filter {
+            exclude("**/generated/**")
+            include("**/kotlin/**")
+        }
+    }
 }
 
 buildscript {
