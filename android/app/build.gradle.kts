@@ -30,7 +30,7 @@ android {
     buildTypes {
         debug {
             firebaseAppDistribution {
-                groups = "QA"
+                groups = "MOBILE"
             }
         }
         release {
