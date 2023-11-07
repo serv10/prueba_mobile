@@ -70,11 +70,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun googleLoginButton() {
-        showMessage(requireContext(), "Falta")
+        showMessage(requireContext(), "Falta +")
     }
 
     private fun mastodonLoginButton() {
-        showMessage(requireContext(), "Falta")
+        showMessage(requireContext(), "Falta -")
     }
 
     private fun setupEmailValidation() {
