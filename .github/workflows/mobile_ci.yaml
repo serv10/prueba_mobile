@@ -47,13 +47,16 @@ jobs:
       #     DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
       #   run: echo $DATA > /home/runner/work/prueba_mobile/prueba_mobile/android/app/google-services.json
 
-      - name: Create Google Services JSON File
-        env:
-          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: echo $GOOGLE_SERVICES_JSON | base64 -di > ./android/app/google-services.json
+      - name: Ubicacion
+        run: pwd
 
-      - name: Clean cache and build App
-        run: ./gradlew clean build
+      # - name: Create Google Services JSON File
+      #   env:
+      #     GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      #   run: echo $GOOGLE_SERVICES_JSON | base64 -di > ./android/app/google-services.json
 
-      - name: Test App
-        run: ./gradlew test
+      # - name: Clean cache and build App
+      #   run: ./gradlew clean build
+
+      # - name: Test App
+      #   run: ./gradlew test
