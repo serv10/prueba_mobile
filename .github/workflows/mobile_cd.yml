@@ -29,9 +29,9 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: setup-java-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            setup-java-${{ runner.os }}-gradle-
+            ${{ runner.os }}-gradle-
       
       - name: Build and deploy Debug
         env:
