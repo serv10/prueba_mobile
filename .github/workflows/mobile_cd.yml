@@ -1,0 +1,48 @@
+name: Mobile CD
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - "android/**"
+
+defaults:
+  run:
+    working-directory: ./android
+
+jobs:
+  deploy:
+    name: Assemble and Upload to Firebase
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permissions to gradle wrapper
+        run: chmod +x ./gradlew
+      
+      - name: Build and deploy Debug
+        env:
+          VERSION_CODE: ${{ github.run_id }}
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+        run: ./gradlew assembleDebug appDistributionUploadDebug 
+
+      # - name: Upload to Firebase App Distribution
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+      #   with:
+      #     appId: ${{ secrets.FIREBASE_APP_ID }}
+      #     token: ${{ secrets.FIREBASE_TOKEN }}
+      #     groups: qa
+      #     file: app/build/outputs/apk/debug/app-debug.apk
