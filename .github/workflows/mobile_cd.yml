@@ -18,7 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Grant execute permissions to gradle wrapper
+        run: chmod +x ./gradlew
 
       - name: Restore Cache
         uses: actions/cache@v3
@@ -29,9 +32,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: Grant execute permissions to gradle wrapper
-        run: chmod +x ./gradlew
       
       - name: Build and deploy Debug
         env:
