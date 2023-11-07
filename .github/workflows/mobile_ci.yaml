@@ -29,15 +29,15 @@ jobs:
       - name: Grant execute permissions to gradle wrapper
         run: chmod +x ./gradlew
 
-      - name: Restore Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: setup-java-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            setup-java-${{ runner.os }}-gradle-
+      # - name: Restore Cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gradle-
 
       # - name: Create file
       #   run: cat /home/runner/work/prueba_mobile/prueba_mobile/android/app/google-services.json | base64
