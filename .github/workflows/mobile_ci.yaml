@@ -19,12 +19,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setting up Java
+      - name: Setting up Java sin comillas
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'gradle'
+          java-version: 17
+          distribution: temurin
+          cache: gradle
 
       - name: Grant execute permissions to gradle wrapper
         run: chmod +x ./gradlew
