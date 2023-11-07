@@ -20,29 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setting up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
       - name: Grant execute permissions to gradle wrapper
         run: chmod +x ./gradlew
-
-      - name: Restore Cache 2
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: setup-java-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            setup-java-${{ runner.os }}-gradle-
       
       - name: Build and deploy Debug
         env:
           VERSION_CODE: ${{ github.run_id }}
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-        run: ./gradlew assembleDebug appDistributionUploadDebug 
-
-      # - name: Upload to Firebase App Distribution
-      #   uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-      #   with:
-      #     appId: ${{ secrets.FIREBASE_APP_ID }}
-      #     token: ${{ secrets.FIREBASE_TOKEN }}
-      #     groups: qa
-      #     file: app/build/outputs/apk/debug/app-debug.apk
+        run: ./gradlew assembleDebug appDistributionUploadDebug
