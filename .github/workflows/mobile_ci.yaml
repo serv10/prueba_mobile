@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setting up Java
         uses: actions/setup-java@v3
@@ -30,10 +30,9 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Clean cache and build App
-        run: ./gradlew clean build
+        run: |
+          echo "$GOOGLE_SERVICES_JSON" > google-services.json
+          ./gradlew clean build
 
       - name: Test App
         run: ./gradlew test
-
-      - name: Package App
-        run: ./gradlew assembleRelease
