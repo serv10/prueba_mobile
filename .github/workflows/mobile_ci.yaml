@@ -35,9 +35,9 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: setup-java-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            setup-java-${{ runner.os }}-gradle-
 
       # - name: Create file
       #   run: cat /home/runner/work/prueba_mobile/prueba_mobile/android/app/google-services.json | base64
@@ -46,9 +46,6 @@ jobs:
       #   env:
       #     DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
       #   run: echo $DATA > /home/runner/work/prueba_mobile/prueba_mobile/android/app/google-services.json
-
-      - name: Ubicacion
-        run: ls -l
 
       - name: Create Google Services JSON File
         env:
