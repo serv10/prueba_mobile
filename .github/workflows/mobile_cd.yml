@@ -13,9 +13,8 @@ defaults:
 
 jobs:
   deploy:
-    name: Assemble and Upload to Firebase
-
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,7 +43,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON}}
         run: echo $GOOGLE_APPLICATION_CREDENTIALS_JSON > ./google_application_credentials.json
 
-      - name: Build and deploy Debug APP
+      - name: Build and deploy Debug APP with var
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_PATH}}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{vars.GOOGLE_APPLICATION_CREDENTIALS_PATH_VAR}}
         run: ./gradlew assembleDebug appDistributionUploadDebug
