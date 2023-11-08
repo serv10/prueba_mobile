@@ -13,9 +13,8 @@ defaults:
 
 jobs:
   deploy:
-    name: Assemble and Upload to Firebase
-
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
