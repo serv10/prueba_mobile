@@ -44,16 +44,8 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
         run: |
           echo $GOOGLE_APPLICATION_CREDENTIALS > ./google-application-credentials.json
-          ls -l
-          echo ~
-          pwd
-          export GOOGLE_APPLICATION_CREDENTIALS=./google-application-credentials.json
+          export GOOGLE_APPLICATION_CREDENTIALS="/home/runner/work/prueba_mobile/prueba_mobile/android/google-application-credentials.json"
           echo $GOOGLE_APPLICATION_CREDENTIALS
       
-      # - name: Build and deploy Debug
-      #   run: ./gradlew assembleDebug appDistributionUploadDebug
-
-      # - name: Build and deploy Debug
-      #   env:
-      #     GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
-      #   run: ./gradlew assembleDebug appDistributionUploadDebug
+      - name: Build and deploy Debug
+        run: ./gradlew assembleDebug appDistributionUploadDebug
