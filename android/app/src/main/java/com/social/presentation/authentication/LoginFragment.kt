@@ -74,7 +74,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun mastodonLoginButton() {
-        showMessage(requireContext(), "Pendiente 20")
+        showMessage(requireContext(), "Pendiente 2")
     }
 
     private fun setupEmailValidation() {

@@ -47,7 +47,8 @@ jobs:
           ls -l
           echo ~
           pwd
-        # export GOOGLE_APPLICATION_CREDENTIALS="~/google-application-credentials.json"
+          export GOOGLE_APPLICATION_CREDENTIALS=./google-application-credentials.json
+          echo $GOOGLE_APPLICATION_CREDENTIALS
       
       # - name: Build and deploy Debug
       #   run: ./gradlew assembleDebug appDistributionUploadDebug
