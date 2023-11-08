@@ -46,6 +46,7 @@ jobs:
           echo $GOOGLE_APPLICATION_CREDENTIALS > ./google-application-credentials.json
           ls -l
           echo ~
+          pwd
         # export GOOGLE_APPLICATION_CREDENTIALS="~/google-application-credentials.json"
       
       # - name: Build and deploy Debug
