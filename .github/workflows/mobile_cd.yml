@@ -38,10 +38,16 @@ jobs:
       - name: Grant execute permissions to gradle wrapper
         run: chmod +x ./gradlew
 
+      - name: Variable 1
+        run: ls app -l
+
       - name: Create Google Application Credentials JSON File
         env:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON}}
         run: echo $GOOGLE_APPLICATION_CREDENTIALS_JSON > ./google_application_credentials.json
+
+      - name: Variable 2
+        run: ls app -l
 
       - name: Build and deploy Debug APP with var
         env:
