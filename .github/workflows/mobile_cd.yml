@@ -11,6 +11,9 @@ defaults:
   run:
     working-directory: ./android
 
+env:
+  GOOGLE_APPLICATION_CREDENTIALS: "/home/runner/work/prueba_mobile/prueba_mobile/android/google_application_credentials.json"
+
 jobs:
   deploy:
     name: Assemble and Upload to Firebase
@@ -41,10 +44,9 @@ jobs:
 
       - name: Create Google Application Credentials JSON File
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON}}
         run: |
-          echo $GOOGLE_APPLICATION_CREDENTIALS > ./google_application_credentials.json
-          export GOOGLE_APPLICATION_CREDENTIALS="/home/runner/work/prueba_mobile/prueba_mobile/android/google_application_credentials.json"
+          echo $GOOGLE_APPLICATION_CREDENTIALS_JSON > ./google_application_credentials.json
           echo $GOOGLE_APPLICATION_CREDENTIALS
 
       - name: variable
