@@ -46,8 +46,10 @@ jobs:
           echo $GOOGLE_APPLICATION_CREDENTIALS_JSON > ./google_application_credentials.json
       
       - name: variable
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_PATH: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_PATH}}
         run: echo $GOOGLE_APPLICATION_CREDENTIALS_PATH
-        
+
       - name: Build and deploy Debug APP
         env:
           GOOGLE_APPLICATION_CREDENTIALS_PATH: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS_PATH}}
