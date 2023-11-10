@@ -6,7 +6,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.firebase.appdistribution")
     id("com.google.gms.google-services")
-    }
+}
 
 android {
     namespace = "com.social"
@@ -72,7 +72,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-    
+
     val roomVersion = "2.6.0"
     val composeUiVersion = "1.5.4"
 
