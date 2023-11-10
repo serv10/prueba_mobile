@@ -209,3 +209,6 @@ replay_pid*
 
 #credentials in gcp
 data/cloud_platform/*.json
+
+#credentials google-services firebase
+android/app/google-services.json
