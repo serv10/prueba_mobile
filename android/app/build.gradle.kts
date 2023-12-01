@@ -30,7 +30,7 @@ android {
     buildTypes {
         debug {
             firebaseAppDistribution {
-                groups = "MOBILE, QA, UXUI, OTROS"
+                groups = "MOBILE, otro"
             }
         }
         release {
