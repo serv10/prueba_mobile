@@ -46,5 +46,27 @@ jobs:
       - name: Clean cache and build App
         run: ./gradlew clean build
 
+      - name: Upload Lint report
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint_report
+          path: app/build/reports/lint-results-debug.html
+
       - name: Test App
         run: ./gradlew test
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDebugUnitTest/
+
+      - name: Instrumentation Test App
+        run: |
+          ./gradlew connectedAndroidTest || true
+
+      - name: Upload instrumentation test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: instrumentation_test_report
+          path: app/build/reports/androidTests/connected/debug/
