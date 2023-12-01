@@ -1,9 +1,0 @@
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-venv/
-.DS_Store
-*.log
-test/
-predictions_results.csv

@@ -1,9 +1,0 @@
-{
-    "trailingComma": "all",
-    "tabWidth": 4,
-    "singleQuote": true,
-    "semi": false,
-    "brackerSpacing": true,
-    "eslintIntegration": true,
-    "printWidth": 120
-}
