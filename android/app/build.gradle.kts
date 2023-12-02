@@ -6,7 +6,6 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.firebase.appdistribution")
     id("com.google.gms.google-services")
-    id("android-test-fixtures")
 }
 
 android {
@@ -64,18 +63,6 @@ android {
 
     viewBinding {
         enable = true
-    }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-        instrumentationTest {
-            devices {
-                virtualDevice("my-device") {
-                    deviceType "pixel"
-                    apiLevel 29
-                }
-            }
-        }
     }
 }
 
