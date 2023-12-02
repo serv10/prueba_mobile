@@ -65,23 +65,23 @@ jobs:
       #   run: |
       #     ./gradlew connectedAndroidTest || true
 
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck || true
+      # - name: Run espresso tests
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 29
+      #     script: ./gradlew connectedCheck || true
 
-      - name: Upload instrumentation test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: instrumentation_test_report
-          path: android/app/build/reports/androidTests/connected/debug/
+      # - name: Upload instrumentation test report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: instrumentation_test_report
+      #     path: android/app/build/reports/androidTests/connected/debug/
 
   instrumentation-test:
     needs: [build]
 
     runs-on: macos-latest
-    
+
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
