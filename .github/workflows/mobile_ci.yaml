@@ -61,44 +61,44 @@ jobs:
       #     name: unit_test_report
       #     path: android/app/build/reports/tests/testDebugUnitTest/
     
-      - name: Set up Android Emulator
+      # - name: Set up Android Emulator
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 29
+      #     target: google_apis
+      #     profile: Nexus 5
+      #     script: emulator -no-window -accel on
+  
+      # - name: Wait for Emulator
+      #   run: adb wait-for-device
+        
+      # - name: Instrumentation Test App
+      #   run: |
+      #     ./gradlew connectedAndroidTest || true
+
+      # - name: Upload instrumentation test report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: instrumentation_test_report
+      #     path: android/app/build/reports/androidTests/connected/debug/
+
+  instrumentation-test:
+    needs: [build]
+
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          target: google_apis
-          profile: Nexus 5
-          script: emulator -no-window -accel on
-  
-      - name: Wait for Emulator
-        run: adb wait-for-device
-        
-      - name: Instrumentation Test App
-        run: |
-          ./gradlew connectedAndroidTest || true
+          script: ./gradlew connectedCheck || true
 
-      - name: Upload instrumentation test report
-        uses: actions/upload-artifact@v3
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
         with:
           name: instrumentation_test_report
-          path: android/app/build/reports/androidTests/connected/debug/
-
-  # instrumentation-test:
-  #   needs: [build]
-
-  #   runs-on: macos-latest
-
-  #   steps:
-  #     - name: Checkout the code
-  #       uses: actions/checkout@v4
-
-  #     - name: Run espresso tests
-  #       uses: reactivecircus/android-emulator-runner@v2
-  #       with:
-  #         api-level: 29
-  #         script: ./gradlew connectedCheck || true
-
-  #     - name: Upload test report
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: instrumentation_test_report
-  #         path: app/build/reports/androidTests/connected/
+          path: app/build/reports/androidTests/connected/
