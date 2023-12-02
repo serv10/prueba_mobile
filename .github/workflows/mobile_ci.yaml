@@ -96,11 +96,8 @@ jobs:
         with:
           api-level: 29
           script: |
-            cd android
-            pwd
-            ls
-            chmod +x ./gradlew
-            ./gradlew connectedCheck || true
+            chmod +x ./android/gradlew
+            ./android/gradlew connectedCheck || true
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
