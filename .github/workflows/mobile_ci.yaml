@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setting up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -61,39 +61,33 @@ jobs:
           name: unit_test_report
           path: android/app/build/reports/tests/testDebugUnitTest/
 
-      # - name: Instrumentation Test App
-      #   run: |
-      #     ./gradlew connectedAndroidTest || true
+      - name: Instrumentation Test App
+        run: |
+          ./gradlew connectedAndroidTest || true
 
-      # - name: Run espresso tests
-      #   uses: reactivecircus/android-emulator-runner@v2
-      #   with:
-      #     api-level: 29
-      #     script: ./gradlew connectedCheck || true
-
-      # - name: Upload instrumentation test report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: instrumentation_test_report
-      #     path: android/app/build/reports/androidTests/connected/debug/
-
-  instrumentation-test:
-    needs: [build]
-
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
+      - name: Upload instrumentation test report
+        uses: actions/upload-artifact@v3
         with:
           name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
+          path: android/app/build/reports/androidTests/connected/debug/
+
+  # instrumentation-test:
+  #   needs: [build]
+
+  #   runs-on: macos-latest
+
+  #   steps:
+  #     - name: Checkout the code
+  #       uses: actions/checkout@v4
+
+  #     - name: Run espresso tests
+  #       uses: reactivecircus/android-emulator-runner@v2
+  #       with:
+  #         api-level: 29
+  #         script: ./gradlew connectedCheck || true
+
+  #     - name: Upload test report
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: instrumentation_test_report
+  #         path: app/build/reports/androidTests/connected/
