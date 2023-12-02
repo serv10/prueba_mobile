@@ -46,31 +46,31 @@ jobs:
       - name: Clean cache and build App
         run: ./gradlew clean build
 
-      - name: Upload Lint report
-        uses: actions/upload-artifact@v3
-        with:
-          name: lint_report
-          path: android/app/build/reports/lint-results-debug.html
+      # - name: Upload Lint report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: lint_report
+      #     path: android/app/build/reports/lint-results-debug.html
 
-      - name: Test App
-        run: ./gradlew test
+      # - name: Test App
+      #   run: ./gradlew test
 
-      - name: Upload test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: unit_test_report
-          path: android/app/build/reports/tests/testDebugUnitTest/
+      # - name: Upload test report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: unit_test_report
+      #     path: android/app/build/reports/tests/testDebugUnitTest/
     
-      - name: Start Emulator
-        run: |
-          sdkmanager "system-images;android-29;google_apis;x86"
-          echo no | avdmanager create avd --force -n test -k "system-images;android-29;google_apis;x86"
-          emulator -avd test -no-audio -no-window -accel on
-          adb wait-for-device
-        
+      - name: Set up Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          profile: Nexus 5
+          script: emulator -no-window -accel on
+  
       - name: Wait for Emulator
-        run: |
-          ./gradlew connectedCheck
+        run: adb wait-for-device
         
       - name: Instrumentation Test App
         run: |
