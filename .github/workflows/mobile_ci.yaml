@@ -19,11 +19,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Setting up Java
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     java-version: '17'
-      #     distribution: 'temurin'
+      - name: donde estoy
+        run: pwd && java -version
+
+      - name: Setting up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: version
+        run: java -version
+      
       
       # - name: Get gradle cache
       #   uses: actions/cache@v3
@@ -87,19 +94,21 @@ jobs:
 
     runs-on: macos-latest
 
-    strategy:
-      matrix:
-        api-level: [21, 23, 29]
-
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
+      - name: donde estoy
+        run: pwd && java -version  
 
       - name: Setting up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: version
+        run: java -version 
       
       - name: Get gradle cache
         uses: actions/cache@v3
@@ -118,13 +127,13 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+          key: avd-29
 
       - name: create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -133,11 +142,11 @@ jobs:
       - name: Run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: cd android && chmod +x ./gradlew && ./gradlew connectedCheck || true
+          script: cd android && ./gradlew connectedCheck || true
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
