@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lint_report
-          path: /home/runner/work/prueba_mobile/prueba_mobile/android/app/build/reports/lint-results-debug.html
+          path: android/app/build/reports/lint-results-debug.html
 
       - name: Test App
         run: ./gradlew test
@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
+          path: android/app/build/reports/tests/testDebugUnitTest/
 
       - name: Instrumentation Test App
         run: |
@@ -69,4 +69,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/debug/
+          path: android/app/build/reports/androidTests/connected/debug/
