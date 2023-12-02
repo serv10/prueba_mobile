@@ -19,75 +19,47 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: donde estoy
-        run: pwd && java -version
-
       - name: Setting up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: version
-        run: java -version
+      - name: Get gradle cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permissions to gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Create Google Services JSON File
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $GOOGLE_SERVICES_JSON > ./app/google-services.json
       
-      
-      # - name: Get gradle cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       ~/.gradle/caches
-      #       ~/.gradle/wrapper
-      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-gradle-
+      - name: Clean cache and build App
+        run: ./gradlew clean build
 
-      # - name: Grant execute permissions to gradle wrapper
-      #   run: chmod +x ./gradlew
+      - name: Upload Lint report
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint_report
+          path: android/app/build/reports/lint-results-debug.html
 
-      # - name: Create Google Services JSON File
-      #   env:
-      #     GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      #   run: echo $GOOGLE_SERVICES_JSON > ./app/google-services.json
-      
-      # - name: Clean cache and build App
-      #   run: ./gradlew clean build
+      - name: Test App
+        run: ./gradlew test
 
-      # - name: Upload Lint report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: lint_report
-      #     path: android/app/build/reports/lint-results-debug.html
-
-      # - name: Test App
-      #   run: ./gradlew test
-
-      # - name: Upload test report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: unit_test_report
-      #     path: android/app/build/reports/tests/testDebugUnitTest/
-    
-      # - name: Set up Android Emulator
-      #   uses: reactivecircus/android-emulator-runner@v2
-      #   with:
-      #     api-level: 29
-      #     target: google_apis
-      #     profile: Nexus 5
-      #     script: emulator -no-window -accel on
-  
-      # - name: Wait for Emulator
-      #   run: adb wait-for-device
-        
-      # - name: Instrumentation Test App
-      #   run: |
-      #     ./gradlew connectedAndroidTest || true
-
-      # - name: Upload instrumentation test report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: instrumentation_test_report
-      #     path: android/app/build/reports/androidTests/connected/debug/
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit_test_report
+          path: android/app/build/reports/tests/testDebugUnitTest/
 
   instrumentation-test:
     needs: [build]
@@ -98,17 +70,11 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: donde estoy
-        run: pwd && java -version  
-
       - name: Setting up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: version
-        run: java -version 
       
       - name: Get gradle cache
         uses: actions/cache@v3
