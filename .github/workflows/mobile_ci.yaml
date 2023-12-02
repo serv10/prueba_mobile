@@ -36,7 +36,9 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Grant execute permissions to gradle wrapper
-        run: chmod +x ./gradlew
+        run: |
+          pwd
+          chmod +x ./gradlew
 
       - name: Create Google Services JSON File
         env:
@@ -97,6 +99,10 @@ jobs:
           api-level: 29
           script: |
             chmod +x ./android/gradlew
+            sudo cd android
+            sudo ls
+            sudo pwd
+            ./android/gradlew init
             ./android/gradlew connectedCheck || true
 
       - name: Upload test report
