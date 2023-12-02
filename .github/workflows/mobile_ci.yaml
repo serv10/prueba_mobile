@@ -97,13 +97,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: |
-            chmod +x ./android/gradlew
-            cd android && pwd 
-            sudo ls
-            sudo pwd
-            ./android/gradlew init
-            ./android/gradlew connectedCheck || true
+          script: cd android && ls -l && chmod +x ./gradlew && ./gradlew connectedCheck || true
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
