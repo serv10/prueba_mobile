@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lint_report
-          path: ./app/build/reports/lint-results-debug.html
+          path: /home/runner/work/prueba_mobile/prueba_mobile/android/app/build/reports/lint-results-debug.html
 
       - name: Test App
         run: ./gradlew test
