@@ -61,9 +61,15 @@ jobs:
           name: unit_test_report
           path: android/app/build/reports/tests/testDebugUnitTest/
 
-      - name: Instrumentation Test App
-        run: |
-          ./gradlew connectedAndroidTest || true
+      # - name: Instrumentation Test App
+      #   run: |
+      #     ./gradlew connectedAndroidTest || true
+
+      - name: Run espresso tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck || true
 
       - name: Upload instrumentation test report
         uses: actions/upload-artifact@v3
